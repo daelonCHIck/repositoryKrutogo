@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Удалить</title>
+</head>
+<body>
+
+    <h1>Укажите id записи, котрую требуется удалить</h1>
+
+    <br><br>
+    <label>Id:</label>
+    <input type="text" id="id" placeholder="Id">
+
+
+    <br><br>
+    <input type="button" value="Удалить" onclick="deleteCurrent()">
+
+    <script>
+        function deleteCurrent( ) {
+            fetch("https://localhost:7210/WeatherForecast?id="
+            + document.getElementById('id').value, {
+                method: "delete"
+            })
+            .then((response) => {
+                if (response.status !== 200) {
+                    console.log('Произошла ошибка. Status code: ' + response.status);
+                    return;
+                }
+                alert('Успешно');
+                window.open("index.html", "_self");
+            })
+            .catch (function (err) {
+                console.log('Fetch Error:, err');
+            });;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить</title>
+</head>
+<body>
+
+    <h1>Добавление новой записи</h1>
+    <p>Укажите новые данные</p>
+    
+<form action="">
+    <br><br>
+    <label>Id:</label>
+    <input type="text" id="id" placeholder="Id" required>
+    
+    <br><br>
+    <label>Date:</label>
+    <input type="text" id="date", placeholder="Дата" required>
+
+    <br><br>
+    <label>degree:</label>
+    <input type="text" id="degree", placeholder="Градусы" required> 
+
+    <br><br>
+    <label>location:</label>
+    <input type="text" id="location" placeholder="Местоположение" required>
+
+    <br><br>
+    <input type="button" value="Создать" onclick="createNew()">
+</form>
+
+
+    <script>
+        function createNew() {
+            fetch("https://localhost:7210/WeatherForecast", {
+                method: "post",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: document.getElementById('id').value,
+                    date: document.getElementById('date').value,
+                    degree: document.getElementById('degree').value,
+                    location: document.getElementById('location').value
+                })
+            })
+                .then((response) => {
+
+                    if (response.status !== 200) {
+                        console.log('Произошла ошибка. Status code: ' + respinse.status);
+                        return;
+                    }
+                    alert('Успешно');
+                    window.open("index.html", "_self");
+                })
+                .catch(function (err) {
+                    console.log('Fetch Error: ', err);
+                });;
+        }
+    </script>
+</body>
+</html>
